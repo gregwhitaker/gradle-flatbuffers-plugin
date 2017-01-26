@@ -10,5 +10,5 @@ class FlatBuffersPlugin implements Plugin<Project> {
     void apply(Project project) {
 
     }
-    
+
 }
