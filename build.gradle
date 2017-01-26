@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
+    }
+}
+
+plugins {
+    id 'com.gradle.build-scan' version '1.4'
+}
+
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
+    publishAlways()
+}
+
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'com.gradle.plugin-publish'
+apply plugin: 'groovy'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude module: 'groovy-all'
+    }
+}
+
+version = '1.0.0'
+group = 'com.github.gregwhitaker'
+
+pluginBundle {
+    website = 'https://github.com/gregwhitaker/gradle-flatbuffers-plugin'
+    vcsUrl = 'https://github.com/gregwhitaker/gradle-flatbuffers-plugin'
+    description = 'Gradle plugin for generating classes from flatbuffers schemas'
+    tags = [ 'serialization', 'build', 'codegen' ]
+
+    plugins {
+        xkcdPlugin {
+            id = 'com.github.gregwhitaker.flatbuffers'
+            displayName = 'com.github.gregwhitaker.flatbuffers'
+        }
+    }
+}
