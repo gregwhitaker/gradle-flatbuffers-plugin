@@ -17,4 +17,8 @@
 package com.github.gregwhitaker.flatbuffers.plugin
 
 class FlatBuffersPluginExtension {
+
+    private String flatc;
+
+
 }
