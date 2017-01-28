@@ -16,30 +16,31 @@
 
 package com.github.gregwhitaker.flatbuffers.plugin
 
-import com.github.gregwhitaker.flatbuffers.plugin.tasks.BuildFlatBuffers
 import com.github.gregwhitaker.flatbuffers.plugin.tasks.CleanFlatBuffers
+import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.util.GUtil
 
 class FlatBuffersPlugin implements Plugin<Project> {
 
-    private static final String GROUP = 'flatbuffers'
+    public static final String GROUP = 'FlatBuffers'
 
     @Override
     void apply(Project project) {
         project.extensions.create('flatbuffers', FlatBuffersPluginExtension.class)
-        applyTasks(project)
+
+        project.afterEvaluate({
+            project.tasks.withType(FlatBuffers).each {
+                addCleanTask(project, it)
+            }
+        })
     }
 
-    void applyTasks(final Project project) {
-        project.task('buildFlatBuffers', type: BuildFlatBuffers) {
-            group = GROUP
-            description = 'Generates flatbuffers files from schemas.'
-        }
-
-        project.task('cleanFlatBuffers', type: CleanFlatBuffers) {
-            group = GROUP
-            description = 'Cleans the output directory of generated flatbuffers files.'
+    void addCleanTask(Project project, FlatBuffers task) {
+        def taskName = 'clean' + GUtil.toCamelCase(task.name)
+        project.tasks.create(taskName, CleanFlatBuffers) {
+            outputDir = task.outputDir
         }
     }
 

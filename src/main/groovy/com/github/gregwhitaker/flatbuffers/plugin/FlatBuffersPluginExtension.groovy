@@ -19,7 +19,7 @@ package com.github.gregwhitaker.flatbuffers.plugin
 class FlatBuffersPluginExtension {
 
     String flatcPath
-    File inputDir
-    File outputDir
+
+    String language
 
 }
