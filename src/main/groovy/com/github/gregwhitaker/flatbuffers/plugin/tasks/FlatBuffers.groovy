@@ -39,9 +39,10 @@ class FlatBuffers extends DefaultTask {
         if (language) {
             return language.toLowerCase()
         } else if (project.flatbuffers.language) {
-            return project.flatbuffers.lanugage.toLowerCase()
+            return project.flatbuffers.language.toLowerCase()
         } else {
             return null
         }
     }
+
 }
