@@ -28,7 +28,8 @@ class FlatBuffersPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        project.extensions.create('flatbuffers', FlatBuffersPluginExtension.class)
+        FlatBuffersPluginExtension extension = new FlatBuffersPluginExtension(project)
+        project.extensions.add('flatbuffers', extension)
         applyTasks(project)
     }
 

@@ -27,7 +27,28 @@ class BuildFlatBuffersTask extends DefaultTask {
 
     @TaskAction
     void run() {
+        validateFlatBuffersCompilerPath()
+        validateInputDir()
+
         def flatcPath = project.flatbuffers.flatcPath
+
+        println flatcPath
+
+        createOutputDir()
+    }
+
+    void validateFlatBuffersCompilerPath() {
+
+    }
+
+    void validateInputDir() {
+
+    }
+
+    void createOutputDir() {
+        def outputDir = project.flatbuffers.outputDir
+
+        println outputDir
     }
 
 }

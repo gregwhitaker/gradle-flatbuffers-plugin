@@ -20,12 +20,23 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.ParallelizableTask
 import org.gradle.api.tasks.TaskAction
 
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+
 @ParallelizableTask
 class CleanFlatBuffersTask extends DefaultTask {
 
     @TaskAction
     void run() {
-        println "CleanFlatBuffersTask"
+        String outputDir = project.flatbuffers.outputDir
+
+        if (outputDir) {
+            Path outputDirPath = Paths.get(outputDir)
+            if (Files.exists(outputDirPath)) {
+                outputDirPath.toFile().deleteDir()
+            }
+        }
     }
 
 }
