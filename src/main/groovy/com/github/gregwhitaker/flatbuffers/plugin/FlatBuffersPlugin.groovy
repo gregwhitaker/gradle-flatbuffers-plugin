@@ -16,7 +16,7 @@
 
 package com.github.gregwhitaker.flatbuffers.plugin
 
-import com.github.gregwhitaker.flatbuffers.plugin.tasks.BuildFlatBuffersTask
+import com.github.gregwhitaker.flatbuffers.plugin.tasks.GenerateFlatBuffersTask
 import com.github.gregwhitaker.flatbuffers.plugin.tasks.CleanFlatBuffersTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -34,8 +34,8 @@ class FlatBuffersPlugin implements Plugin<Project> {
     }
 
     void applyTasks(final Project project) {
-        project.task('buildFlatbuffers',
-            type: BuildFlatBuffersTask,
+        project.task('generateFlatBuffers',
+            type: GenerateFlatBuffersTask,
             group: GROUP,
             description: 'Generates flatbuffers files from schemas')
 

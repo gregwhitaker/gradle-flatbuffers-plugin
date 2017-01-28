@@ -21,12 +21,12 @@ import org.gradle.api.Project
 class FlatBuffersPluginExtension {
 
     String flatcPath
-    String inputDir
-    String outputDir
+    File inputDir
+    File outputDir
 
     FlatBuffersPluginExtension(Project project) {
-        inputDir = "${project.rootDir}/src/main/flatbuffers"
-        outputDir = "${project.rootDir}/src/generated/flatbuffers"
+        inputDir = new File("${project.rootDir}/src/main/flatbuffers")
+        outputDir = new File("${project.rootDir}/src/generated/flatbuffers")
     }
 
     /**
@@ -44,7 +44,7 @@ class FlatBuffersPluginExtension {
      * @param inputDir
      * @return
      */
-    def inputDir(String inputDir) {
+    def inputDir(File inputDir) {
         this.inputDir = inputDir
         return this
     }
@@ -54,7 +54,7 @@ class FlatBuffersPluginExtension {
      * @param outputDir
      * @return
      */
-    def outputDir(String outputDir) {
+    def outputDir(File outputDir) {
         this.outputDir = outputDir
         return this
     }
