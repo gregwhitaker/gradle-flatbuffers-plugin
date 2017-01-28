@@ -1,7 +1,11 @@
 gradle-flatbuffers-plugin
 ===
 
+Gradle plugin for generating code from Google [FlatBuffers](https://google.github.io/flatbuffers/) schemas.
+
 ##Requirements
+
+TBD
 
 ##Bugs and Feedback
 
