@@ -20,5 +20,4 @@ class FlatBuffersPluginExtension {
 
     private String flatc;
 
-
 }

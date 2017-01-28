@@ -27,7 +27,7 @@ class BuildFlatBuffersTask extends DefaultTask {
 
     @TaskAction
     void run() {
-        println "BuildFlatBuffersTask"
+        def flatcPath = project.flatbuffers.flatcPath
     }
 
 }
