@@ -14,10 +14,30 @@
  * limitations under the License.
  */
 
-package com.github.gregwhitaker.flatbuffers.plugin
+package com.github.gregwhitaker.flatbuffers.plugin.tasks
 
-import spock.lang.Specification
+/**
+ * Enumeration of languages supported by the flatbuffers compiler.
+ */
+enum Language {
 
-class BuildFlatBuffersFunctionalTest extends Specification {
+    CPP("c++"),
+    JAVA("java"),
+    CSHARP("c#"),
+    GO("go"),
+    PYTHON("python"),
+    JAVASCRIPT("javascript"),
+    PHP("php"),
+    GRPC("grpc")
+
+    private final String value
+
+    Language(String value) {
+        this.value = value
+    }
+
+    public String getValue() {
+        return value
+    }
 
 }

@@ -17,20 +17,16 @@
 package com.github.gregwhitaker.flatbuffers.plugin.tasks
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.ParallelizableTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.execution.commandline.TaskConfigurationException
 
 import java.nio.file.Files
 import java.nio.file.Paths
 
-@ParallelizableTask
-@CacheableTask
-class GenerateFlatBuffersTask extends DefaultTask {
+class BuildFlatBuffers extends DefaultTask {
     private File inputDir = project.flatbuffers.inputDir
     private File outputDir = project.flatbuffers.outputDir
 
@@ -78,6 +74,9 @@ class GenerateFlatBuffersTask extends DefaultTask {
         }
     }
 
+    /**
+     * Creates the output directory for generated flatbuffers if it does not exist.
+     */
     void createOutputDir() {
         if (!getOutputDir().exists()) {
             getOutputDir().mkdir()

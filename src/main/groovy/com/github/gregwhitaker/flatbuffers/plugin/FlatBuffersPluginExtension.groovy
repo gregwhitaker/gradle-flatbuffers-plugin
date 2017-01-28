@@ -16,47 +16,10 @@
 
 package com.github.gregwhitaker.flatbuffers.plugin
 
-import org.gradle.api.Project
-
 class FlatBuffersPluginExtension {
 
     String flatcPath
     File inputDir
     File outputDir
-
-    FlatBuffersPluginExtension(Project project) {
-        inputDir = new File("${project.rootDir}/src/main/flatbuffers")
-        outputDir = new File("${project.rootDir}/src/generated/flatbuffers")
-    }
-
-    /**
-     *
-     * @param flatcPath
-     * @return
-     */
-    def flatcPath(String flatcPath) {
-        this.flatcPath = flatcPath
-        return this
-    }
-
-    /**
-     *
-     * @param inputDir
-     * @return
-     */
-    def inputDir(File inputDir) {
-        this.inputDir = inputDir
-        return this
-    }
-
-    /**
-     *
-     * @param outputDir
-     * @return
-     */
-    def outputDir(File outputDir) {
-        this.outputDir = outputDir
-        return this
-    }
 
 }

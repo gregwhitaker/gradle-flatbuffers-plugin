@@ -18,33 +18,29 @@ package com.github.gregwhitaker.flatbuffers.plugin.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.ParallelizableTask
 import org.gradle.api.tasks.TaskAction
 
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
-
 @ParallelizableTask
-class CleanFlatBuffersTask extends DefaultTask {
+class CleanFlatBuffers extends DefaultTask {
 
-    private File outputDir
+    @Optional
+    @InputDirectory
+    File outputDir
 
     @TaskAction
     void run() {
-        String outputDir = project.flatbuffers.outputDir
-
-        if (outputDir) {
-            Path outputDirPath = Paths.get(outputDir)
-            if (Files.exists(outputDirPath)) {
-                outputDirPath.toFile().deleteDir()
+        File dir = getOutputDir()
+        if (dir) {
+            if (dir.exists()) {
+                dir.deleteDir()
             }
         }
     }
 
-    @InputDirectory
     File getOutputDir() {
-        return outputDir
+        return outputDir != null ? outputDir : project.flatbuffers.outputDir
     }
 
 }

@@ -16,11 +16,10 @@
 
 package com.github.gregwhitaker.flatbuffers.plugin
 
-import com.github.gregwhitaker.flatbuffers.plugin.tasks.GenerateFlatBuffersTask
-import com.github.gregwhitaker.flatbuffers.plugin.tasks.CleanFlatBuffersTask
+import com.github.gregwhitaker.flatbuffers.plugin.tasks.BuildFlatBuffers
+import com.github.gregwhitaker.flatbuffers.plugin.tasks.CleanFlatBuffers
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-
 
 class FlatBuffersPlugin implements Plugin<Project> {
 
@@ -28,21 +27,20 @@ class FlatBuffersPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        FlatBuffersPluginExtension extension = new FlatBuffersPluginExtension(project)
-        project.extensions.add('flatbuffers', extension)
+        project.extensions.create('flatbuffers', FlatBuffersPluginExtension.class)
         applyTasks(project)
     }
 
     void applyTasks(final Project project) {
-        project.task('generateFlatBuffers',
-            type: GenerateFlatBuffersTask,
-            group: GROUP,
-            description: 'Generates flatbuffers files from schemas')
+        project.task('buildFlatBuffers', type: BuildFlatBuffers) {
+            group = GROUP
+            description = 'Generates flatbuffers files from schemas.'
+        }
 
-        project.task('cleanFlatbuffers',
-            type: CleanFlatBuffersTask,
-            group: GROUP,
-            description: 'Deletes generated flatbuffers files')
+        project.task('cleanFlatBuffers', type: CleanFlatBuffers) {
+            group = GROUP
+            description = 'Cleans the output directory of generated flatbuffers files.'
+        }
     }
 
 }
