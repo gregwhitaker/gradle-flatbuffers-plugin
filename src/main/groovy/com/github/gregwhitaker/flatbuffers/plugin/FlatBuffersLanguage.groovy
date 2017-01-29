@@ -18,9 +18,9 @@ package com.github.gregwhitaker.flatbuffers.plugin
 
 enum FlatBuffersLanguage {
 
-    C_PLUS_PLUS("c++"),
+    C_PLUS_PLUS("cpp"),
     JAVA("java"),
-    C_SHARP("c#"),
+    C_SHARP("csharp"),
     GO("go"),
     PYTHON("python"),
     JAVASCRIPT("javascript"),

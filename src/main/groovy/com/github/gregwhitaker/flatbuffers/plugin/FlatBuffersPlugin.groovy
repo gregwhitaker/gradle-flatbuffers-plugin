@@ -34,6 +34,10 @@ class FlatBuffersPlugin implements Plugin<Project> {
             project.tasks.withType(FlatBuffers).each {
                 addCleanTask(project, it)
             }
+
+            project.dependencies {
+                compile 'com.github.davidmoten:flatbuffers-java:1.4.0.1'
+            }
         })
     }
 

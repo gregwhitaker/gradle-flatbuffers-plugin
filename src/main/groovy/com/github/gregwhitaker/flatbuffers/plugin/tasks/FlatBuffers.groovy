@@ -34,6 +34,11 @@ class FlatBuffers extends DefaultTask {
 
         getSchemas().each {
             println "Compiling: '${it}'"
+
+            def cmd = "${flatcPath} --${language} -o ${outputDir} ${it}"
+
+            getLogger().debug("Running command: '${cmd}'")
+            cmd.execute([], project.projectDir)
         }
     }
 
@@ -69,7 +74,18 @@ class FlatBuffers extends DefaultTask {
      */
     @Internal
     private String getFlatcPath() {
-        return project.flatbuffers.flatcPath != null ? project.flatbuffers.flatcPath : 'flatc'
+        String path = project.flatbuffers.flatcPath
+
+        if (path) {
+            if (!path.endsWith("/flatc")) {
+                path += "/flatc"
+            }
+        } else {
+            // Assuming that flatc is on the system path
+            path = "flatc"
+        }
+
+        return path
     }
 
     /**
