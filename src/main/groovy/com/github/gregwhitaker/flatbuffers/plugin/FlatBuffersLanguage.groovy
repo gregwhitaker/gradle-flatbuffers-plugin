@@ -16,6 +16,9 @@
 
 package com.github.gregwhitaker.flatbuffers.plugin
 
+/**
+ * Enumeration of all languages supported by the FlatBuffers compiler.
+ */
 enum FlatBuffersLanguage {
 
     C_PLUS_PLUS("cpp"),
