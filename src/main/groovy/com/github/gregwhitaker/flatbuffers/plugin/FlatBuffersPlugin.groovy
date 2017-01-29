@@ -20,6 +20,9 @@ import com.github.gregwhitaker.flatbuffers.plugin.tasks.CleanFlatBuffers
 import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPlugin
+import org.gradle.api.tasks.SourceSetContainer
+import org.gradle.plugins.ide.idea.IdeaPlugin
 import org.gradle.util.GUtil
 
 class FlatBuffersPlugin implements Plugin<Project> {
@@ -33,9 +36,11 @@ class FlatBuffersPlugin implements Plugin<Project> {
         project.afterEvaluate({
             project.tasks.withType(FlatBuffers).each {
                 addCleanTask(project, it)
+                applySourceSets(project, it)
+                reconfigurePlugins(project, it)
             }
 
-            applyJavaDependencies(project)
+            applyDependencies(project)
         })
     }
 
@@ -52,13 +57,27 @@ class FlatBuffersPlugin implements Plugin<Project> {
         }
     }
 
-    /**
-     * Automatically adds FlatBuffers java dependencies if the java plugin is applied.
-     *
-     * @param project Gradle project
-     */
-    void applyJavaDependencies(Project project) {
-        if (project.plugins.hasPlugin('java')) {
+    void applySourceSets(Project project, FlatBuffers task) {
+        SourceSetContainer sourceSets = (SourceSetContainer) project.getProperties().get("sourceSets")
+
+        if (project.plugins.hasPlugin(JavaPlugin)) {
+            sourceSets.getByName("main").java.srcDir(task.getInputDir())
+            sourceSets.getByName("main").java.srcDir(task.getOutputDir())
+        }
+    }
+
+    void reconfigurePlugins(Project project, FlatBuffers task) {
+        // Intellij specific configurations
+        if (project.plugins.hasPlugin(IdeaPlugin)) {
+            project.idea.module.generatedSourceDirs = [
+                    task.getOutputDir()
+            ]
+        }
+    }
+
+    void applyDependencies(Project project) {
+        // Java specific dependencies
+        if (project.plugins.hasPlugin(JavaPlugin)) {
             project.dependencies {
                 compile 'com.github.davidmoten:flatbuffers-java:1.4.0.1'
             }
