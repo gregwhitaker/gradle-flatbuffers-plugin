@@ -136,9 +136,7 @@ class FlatBuffers extends DefaultTask {
     String getDescription() {
         return 'Assembles FlatBuffers for this project.'
     }
-
-
-
+    
     @Optional
     @InputDirectory
     File getInputDir() {
