@@ -16,10 +16,10 @@ Please see the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/com.gith
 ###Extension Properties
 The plugin defines the following extension properties in the `flatbuffers` closure:
 
-| Property  | Type   | Default Value | Description                                        |
-|-----------|--------|---------------|----------------------------------------------------|
-| flatcPath | String | flatc         | The path to the flatc compiler.                    |
-| language  | String | null          | The language to use when compiling the FlatBuffers.|
+| Property  | Type   | Default Value | Required | Description                                        |
+|-----------|--------|---------------|---------------------------------------------------------------|
+| flatcPath | String | flatc         | False    | The path to the flatc compiler.                    |
+| language  | String | null          | False    | The language to use when compiling the FlatBuffers.|
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
 
@@ -29,6 +29,25 @@ The plugin provides the following custom task types for generating FlatBuffers:
 | Type        | Description                   |
 |-------------|-------------------------------|
 | FlatBuffers | Compiles FlatBuffers schemas. |
+
+####FlatBuffers
+This task type compiles FlatBuffers schemas.
+
+| Property  | Type   | Default Value          | Required | Description                                         |
+|-----------|--------|------------------------|----------------------------------------------------------------|
+| inputDir  | File   | `src/main/flatbuffers` | False    | The path to the schemas directory.                  |
+| outputDir | File   | null                   | True     | The path to the directory for compiled FlatBuffers. | 
+| language  | String | value in extension     | False    | The language to use when compiling the FlatBuffers. |
+
+*Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
+
+```$groovy
+    task createFlatBuffers(type: FlatBuffers) {
+        inputDir = file("src/main/flatbuffers")
+        outputDir = file("src/generated/flatbuffers")
+        language = 'java'
+    }
+```
 
 ###Supported Languages
 The plugin supports generating code in all languages currently supported by FlatBuffers:
