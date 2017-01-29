@@ -27,7 +27,7 @@ The following languages are supported by the plugin:
 | Language   | Configuration Value |
 |------------|---------------------|
 | C++        | cpp                 |
-| java       | java                |
+| Java       | java                |
 | C#         | csharp              |
 | Go         | go                  |
 | Python     | python              |
