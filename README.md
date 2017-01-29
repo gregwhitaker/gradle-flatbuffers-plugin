@@ -29,6 +29,7 @@ The plugin provides the following custom task types for generating FlatBuffers:
 | FlatBuffers | Compiles FlatBuffers schemas. |
 
 ###Example
+This example generates Java FlatBuffers from the schema files in the default `src/main/flatbuffers` directory and places the generated code in `src/generated/flatbuffers`.
 
 ```$groovy
     import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
