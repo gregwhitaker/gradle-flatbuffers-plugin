@@ -45,10 +45,10 @@ class FlatBuffersPlugin implements Plugin<Project> {
     }
 
     /**
-     * Automatically adds a 'clean' task for any FlatBuffers tasks in the project.
+     * Adds a 'clean' task for any FlatBuffers tasks in the project.
      *
      * @param project Gradle project
-     * @param task FlatBuffers task
+     * @param task {@link FlatBuffers} task
      */
     void addCleanTask(Project project, FlatBuffers task) {
         def taskName = 'clean' + GUtil.toCamelCase(task.name)
@@ -57,6 +57,12 @@ class FlatBuffersPlugin implements Plugin<Project> {
         }
     }
 
+    /**
+     * Adds source sets for the FlatBuffers input and output directories.
+     *
+     * @param project Gradle project
+     * @param task {@link FlatBuffers} task
+     */
     void applySourceSets(Project project, FlatBuffers task) {
         SourceSetContainer sourceSets = (SourceSetContainer) project.getProperties().get("sourceSets")
 
@@ -66,6 +72,12 @@ class FlatBuffersPlugin implements Plugin<Project> {
         }
     }
 
+    /**
+     * Reconfigures certain plugins to know about the FlatBuffers project structure.
+     *
+     * @param project Gradle project
+     * @param task {@link FlatBuffers} task
+     */
     void reconfigurePlugins(Project project, FlatBuffers task) {
         // Intellij specific configurations
         if (project.plugins.hasPlugin(IdeaPlugin)) {
@@ -75,6 +87,11 @@ class FlatBuffersPlugin implements Plugin<Project> {
         }
     }
 
+    /**
+     * Adds FlatBuffers dependencies to the project.
+     *
+     * @param project Gradle project
+     */
     void applyDependencies(Project project) {
         // Java specific dependencies
         if (project.plugins.hasPlugin(JavaPlugin)) {
