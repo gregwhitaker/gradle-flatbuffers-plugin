@@ -12,6 +12,17 @@ For information on building and installing the compiler please refer to the [Fla
 
 ##Usage
 Please see the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/com.github.gregwhitaker.flatbuffers) for instructions on including this plugin in your project.
+
+###Extension Properties
+The plugin defines the following extension properties in the `flatbuffers` closure:
+
+| Property  | Type   | Default Value | Description                                        |
+|-----------|--------|---------------|----------------------------------------------------|
+| flatcPath | String | flatc         | The path to the flatc compiler.           |
+| language  | String | null          | The language to compile to generate FlatBuffers in.|
+
+###Custom Task Types
+
 ##Bugs and Feedback
 
 For bugs, questions and discussions please use the [Github Issues](https://github.com/gregwhitaker/gradle-flatbuffers-plugin/issues).
