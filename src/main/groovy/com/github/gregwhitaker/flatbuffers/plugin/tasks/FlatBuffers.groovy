@@ -5,8 +5,10 @@ import com.github.gregwhitaker.flatbuffers.plugin.FlatBuffersPlugin
 import groovy.io.FileType
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.ParallelizableTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskExecutionException
@@ -133,7 +135,7 @@ class FlatBuffers extends DefaultTask {
 
 
     @Optional
-    @Input
+    @InputDirectory
     File getInputDir() {
         if (inputDir) {
             return inputDir
@@ -147,7 +149,7 @@ class FlatBuffers extends DefaultTask {
         this.inputDir = inputDir
     }
 
-    @Input
+    @OutputDirectory
     File getOutputDir() {
         return outputDir
     }
