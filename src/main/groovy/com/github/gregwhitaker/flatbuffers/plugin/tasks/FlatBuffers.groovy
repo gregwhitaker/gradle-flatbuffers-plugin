@@ -33,7 +33,7 @@ class FlatBuffers extends DefaultTask {
         def inputDir = getInputDir()
 
         getSchemas().each {
-            println "Generating: '${it}'"
+            println "Compiling: '${it}'"
         }
     }
 
@@ -72,6 +72,11 @@ class FlatBuffers extends DefaultTask {
         return project.flatbuffers.flatcPath != null ? project.flatbuffers.flatcPath : 'flatc'
     }
 
+    /**
+     * Gets all schema files to use during FlatBuffers compilation.
+     *
+     * @return a list of all schema files to compile
+     */
     @Internal
     private File[] getSchemas() {
         def schemas = []
@@ -93,7 +98,7 @@ class FlatBuffers extends DefaultTask {
     @Internal
     @Override
     String getDescription() {
-        return 'Assembles flatbuffers for this project.'
+        return 'Assembles FlatBuffers for this project.'
     }
 
     File getInputDir() {
@@ -108,11 +113,11 @@ class FlatBuffers extends DefaultTask {
     String getLanguage() {
         if (language) {
             validateLanguage(language)
-            getLogger().debug("Generating code for language '{}' specified in the task configuration.", language)
+            getLogger().debug("Compiling code for language '{}' specified in the task configuration.", language)
             return language.toLowerCase()
         } else if (project.flatbuffers.language) {
             validateLanguage(project.flatbuffers.language)
-            getLogger().debug("Generating code using the default language '{}' specified in the 'flatbuffers' configuration.")
+            getLogger().debug("Compiling code using the default language '{}' specified in the 'flatbuffers' configuration.")
             return project.flatbuffers.language.toLowerCase()
         } else {
             throw new TaskConfigurationException(path,

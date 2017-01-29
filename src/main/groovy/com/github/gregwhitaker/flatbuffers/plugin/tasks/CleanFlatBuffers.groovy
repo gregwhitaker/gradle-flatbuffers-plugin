@@ -50,7 +50,7 @@ class CleanFlatBuffers extends DefaultTask {
     @Internal
     @Override
     String getDescription() {
-        return 'Deletes the flatbuffers build directory.'
+        return 'Deletes the FlatBuffers build directory.'
     }
 
 }
