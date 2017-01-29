@@ -41,6 +41,8 @@ class CleanFlatBuffersFuncTest extends Specification {
     def "cleanFlatBuffers deletes the flatbuffers generated code directory"() {
         given:
         buildFile << """
+            import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
+
             plugins {
                 id 'idea'
                 id 'java'
@@ -48,6 +50,10 @@ class CleanFlatBuffersFuncTest extends Specification {
             }
             
             flatbuffers {
+                language = 'java'
+            }
+            
+            task flatBuffers(type: FlatBuffers) {
                 outputDir = file('${outputDirPath}')
             }
         """
