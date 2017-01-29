@@ -21,6 +21,20 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 | flatcPath | String | flatc         | The path to the flatc compiler.                    |
 | language  | String | null          | The language to use when compiling the FlatBuffers.|
 
+####Supported Languages
+The following languages are supported by the plugin:
+
+| Language   | Configuration Value |
+|------------|---------------------|
+| C++        | cpp                 |
+| java       | java                |
+| C#         | csharp              |
+| Go         | go                  |
+| Python     | python              |
+| Javascript | javascript          |
+| PHP        | php                 |
+| GRPC       | grpc                |
+
 ###Custom Task Types
 The plugin provides the following custom task types for generating FlatBuffers:
 
