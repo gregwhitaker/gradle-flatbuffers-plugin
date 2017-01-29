@@ -2,6 +2,7 @@ package com.github.gregwhitaker.flatbuffers.plugin.tasks
 
 import com.github.gregwhitaker.flatbuffers.plugin.FlatBuffersPlugin
 import org.gradle.api.DefaultTask
+import org.gradle.api.logging.Logger
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
@@ -22,6 +23,16 @@ class FlatBuffers extends DefaultTask {
     @TaskAction
     void run() {
         println outputDir
+        createOutputDir()
+    }
+
+    private void createOutputDir() {
+        if (!outputDir.exists()) {
+            getLogger().debug("Creating output directory '{}'.", outputDir.absolutePath)
+            outputDir.mkdirs()
+        } else {
+            getLogger().debug("Skipping creation of output directory '{}' as it already exists.", outputDir.absolutePath)
+        }
     }
 
     @Internal
@@ -38,8 +49,10 @@ class FlatBuffers extends DefaultTask {
 
     String getLanguage() {
         if (language) {
+            getLogger().debug("Generating code for language '{}' specified in the task configuration.", language)
             return language.toLowerCase()
         } else if (project.flatbuffers.language) {
+            getLogger().debug("Generating code using the default language '{}' specified in the 'flatbuffers' configuration.")
             return project.flatbuffers.language.toLowerCase()
         } else {
             throw new TaskConfigurationException(path,

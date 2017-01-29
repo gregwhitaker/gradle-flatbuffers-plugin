@@ -33,8 +33,11 @@ class CleanFlatBuffers extends DefaultTask {
     void run() {
         if (outputDir) {
             if (outputDir.exists()) {
+                getLogger().debug("Cleaning output directory '{}'.", outputDir.absolutePath)
                 outputDir.deleteDir()
             }
+        } else {
+            getLogger().debug("Skipping clean of output directory '{}' as it does not exist.", outputDir.absolutePath)
         }
     }
 
@@ -49,4 +52,5 @@ class CleanFlatBuffers extends DefaultTask {
     String getDescription() {
         return 'Deletes the flatbuffers build directory.'
     }
+    
 }
