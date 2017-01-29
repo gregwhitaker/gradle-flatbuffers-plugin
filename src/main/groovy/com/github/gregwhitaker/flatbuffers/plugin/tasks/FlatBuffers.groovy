@@ -7,6 +7,7 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.ParallelizableTask
 import org.gradle.api.tasks.TaskAction
+import org.gradle.execution.commandline.TaskConfigurationException
 
 @ParallelizableTask
 class FlatBuffers extends DefaultTask {
@@ -41,7 +42,9 @@ class FlatBuffers extends DefaultTask {
         } else if (project.flatbuffers.language) {
             return project.flatbuffers.language.toLowerCase()
         } else {
-            return null
+            throw new TaskConfigurationException(path,
+                    "A problem was found with the configuration of task '" + name + "'.",
+                    new IllegalArgumentException("No value has been specified for property 'language'."))
         }
     }
 
