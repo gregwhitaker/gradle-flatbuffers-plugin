@@ -35,24 +35,29 @@ class FlatBuffers extends DefaultTask {
             def cmd = "${flatcPath} --${language} -o ${outputDir} ${it}"
 
             getLogger().debug("Running command: '${cmd}'")
-            Process process = cmd.execute([], project.projectDir)
-            def exited = process.waitFor(30, TimeUnit.SECONDS)
 
-            if (exited) {
-                if (process.exitValue() != 0) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))
-                    StringBuilder builder = new StringBuilder()
+            try {
+                Process process = cmd.execute([], project.projectDir)
+                def exited = process.waitFor(30, TimeUnit.SECONDS)
 
-                    String line = null
-                    while ( (line = reader.readLine()) != null) {
-                        builder.append(line)
-                        builder.append(System.getProperty("line.separator"))
+                if (exited) {
+                    if (process.exitValue() != 0) {
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))
+                        StringBuilder builder = new StringBuilder()
+
+                        String line = null
+                        while ( (line = reader.readLine()) != null) {
+                            builder.append(line)
+                            builder.append(System.getProperty("line.separator"))
+                        }
+
+                        throw new TaskExecutionException(this, new Exception(builder.toString()))
                     }
-
-                    throw new TaskExecutionException(this, new Exception(builder.toString()))
+                } else {
+                    throw new TaskExecutionException(this, new Exception("Timed out while compiling '${it}'."))
                 }
-            } else {
-                throw new TaskExecutionException(this, new Exception("Timed out while compiling '" + it + "'."))
+            } catch (IOException e) {
+                throw new TaskExecutionException(this, e)
             }
         }
     }
@@ -78,7 +83,7 @@ class FlatBuffers extends DefaultTask {
         if (FlatBuffersLanguage.get(lang) == null) {
             throw new TaskConfigurationException(path,
                     "A problem was found with the configuration of task '" + name + "'.",
-                    new IllegalArgumentException("Unsupported value '" + lang + "' specified for property 'language'."))
+                    new IllegalArgumentException("Unsupported value '${lang}' specified for property 'language'."))
         }
     }
 
