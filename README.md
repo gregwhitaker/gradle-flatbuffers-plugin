@@ -17,7 +17,7 @@ Please see the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/com.gith
 The plugin defines the following extension properties in the `flatbuffers` closure:
 
 | Property  | Type   | Default Value | Required | Description                                        |
-|-----------|--------|---------------|---------------------------------------------------------------|
+|-----------|--------|---------------|----------|----------------------------------------------------|
 | flatcPath | String | flatc         | False    | The path to the flatc compiler.                    |
 | language  | String | null          | False    | The language to use when compiling the FlatBuffers.|
 
@@ -26,13 +26,20 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 ###Custom Task Types
 The plugin provides the following custom task types for generating FlatBuffers:
 
-| Type        | Description                   |
-|-------------|-------------------------------|
-| FlatBuffers | Compiles FlatBuffers schemas. |
+| Type                        | Description                   |
+|-----------------------------|-------------------------------|
+| [FlatBuffers](#flatbuffers) | Compiles FlatBuffers schemas. |
 
 ####FlatBuffers
 This task type compiles FlatBuffers schemas.
 
+```$groovy
+    task createFlatBuffers(type: FlatBuffers) {
+        inputDir = file("src/main/flatbuffers")
+        outputDir = file("src/generated/flatbuffers")
+        language = 'java'
+    }
+```
 
 | Property  | Type   | Default Value          | Required | Description                                         |
 |-----------|--------|------------------------|----------|-----------------------------------------------------|
@@ -42,14 +49,6 @@ This task type compiles FlatBuffers schemas.
 
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
-
-```$groovy
-    task createFlatBuffers(type: FlatBuffers) {
-        inputDir = file("src/main/flatbuffers")
-        outputDir = file("src/generated/flatbuffers")
-        language = 'java'
-    }
-```
 
 ###Supported Languages
 The plugin supports generating code in all languages currently supported by FlatBuffers:
