@@ -24,9 +24,28 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 ###Custom Task Types
 The plugin provides the following custom task types for generating FlatBuffers:
 
-| Type        | Description                  |
-|-------------|------------------------------|
-| FlatBuffers | Compiles FlatBuffers schemas |
+| Type        | Description                   |
+|-------------|-------------------------------|
+| FlatBuffers | Compiles FlatBuffers schemas. |
+
+###Example
+
+```$groovy
+    import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
+    
+    plugins {
+      id "com.github.gregwhitaker.flatbuffers" version "1.0.0"
+    }
+
+    flatbuffers {
+        flatcPath = '/Users/greg/bin/flatc'
+        language = 'java'
+    }
+    
+    task createFlatBuffers(type: FlatBuffers) {
+        outputDir = file("src/generated/flatbuffers")
+    }
+```
 
 ##Bugs and Feedback
 
