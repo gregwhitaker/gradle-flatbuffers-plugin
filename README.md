@@ -6,7 +6,9 @@ Gradle plugin for generating code from Google [FlatBuffers](https://google.githu
 
 ##Requirements
 
-TBD
+This plugin requires that the FlatBuffers compiler be installed on the system.
+
+For information on building and installing the compiler please refer to the [FlatBuffers Documentation](https://google.github.io/flatbuffers/flatbuffers_guide_building.html).
 
 ##Bugs and Feedback
 
