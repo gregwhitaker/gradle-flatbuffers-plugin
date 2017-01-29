@@ -26,16 +26,16 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 ####Supported Languages
 The following languages are supported by the plugin:
 
-| Language   | Configuration Value |
-|------------|---------------------|
-| C++        | cpp                 |
-| Java       | java                |
-| C#         | csharp              |
-| Go         | go                  |
-| Python     | python              |
-| Javascript | javascript          |
-| PHP        | php                 |
-| GRPC       | grpc                |
+| Language   | Property Value |
+|------------|----------------|
+| C++        | cpp            |
+| Java       | java           |
+| C#         | csharp         |
+| Go         | go             |
+| Python     | python         |
+| Javascript | javascript     |
+| PHP        | php            |
+| GRPC       | grpc           |
 
 ###Custom Task Types
 The plugin provides the following custom task types for generating FlatBuffers:
