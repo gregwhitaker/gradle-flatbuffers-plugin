@@ -22,6 +22,11 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 | language  | String | null          | The language to use when compiling the FlatBuffers.|
 
 ###Custom Task Types
+The plugin provides the following custom task types for generating FlatBuffers:
+
+| Type        | Description                  |
+|-------------|------------------------------|
+| FlatBuffers | Compiles FlatBuffers schemas |
 
 ##Bugs and Feedback
 
