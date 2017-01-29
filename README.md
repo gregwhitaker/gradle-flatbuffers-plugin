@@ -21,6 +21,8 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 | flatcPath | String | flatc         | The path to the flatc compiler.                    |
 | language  | String | null          | The language to use when compiling the FlatBuffers.|
 
+*Note:* Please see the "Supported Languages" section for valid `language` values.
+
 ####Supported Languages
 The following languages are supported by the plugin:
 
