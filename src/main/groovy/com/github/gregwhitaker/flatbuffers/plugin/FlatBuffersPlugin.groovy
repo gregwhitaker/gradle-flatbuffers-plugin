@@ -35,9 +35,7 @@ class FlatBuffersPlugin implements Plugin<Project> {
                 addCleanTask(project, it)
             }
 
-            project.dependencies {
-                compile 'com.github.davidmoten:flatbuffers-java:1.4.0.1'
-            }
+            applyJavaDependencies(project)
         })
     }
 
@@ -51,6 +49,19 @@ class FlatBuffersPlugin implements Plugin<Project> {
         def taskName = 'clean' + GUtil.toCamelCase(task.name)
         project.tasks.create(taskName, CleanFlatBuffers) {
             outputDir = task.outputDir
+        }
+    }
+
+    /**
+     * Automatically adds FlatBuffers java dependencies if the java plugin is applied.
+     *
+     * @param project Gradle project
+     */
+    void applyJavaDependencies(Project project) {
+        if (project.plugins.hasPlugin('java')) {
+            project.dependencies {
+                compile 'com.github.davidmoten:flatbuffers-java:1.4.0.1'
+            }
         }
     }
 
