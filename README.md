@@ -18,8 +18,8 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 
 | Property  | Type   | Default Value | Description                                        |
 |-----------|--------|---------------|----------------------------------------------------|
-| flatcPath | String | flatc         | The path to the flatc compiler.           |
-| language  | String | null          | The language to compile to generate FlatBuffers in.|
+| flatcPath | String | flatc         | The path to the flatc compiler.                    |
+| language  | String | null          | The language to use when compiling the FlatBuffers.|
 
 ###Custom Task Types
 
