@@ -52,5 +52,5 @@ class CleanFlatBuffers extends DefaultTask {
     String getDescription() {
         return 'Deletes the flatbuffers build directory.'
     }
-    
+
 }

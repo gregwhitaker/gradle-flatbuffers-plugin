@@ -1,5 +1,6 @@
 package com.github.gregwhitaker.flatbuffers.plugin.tasks
 
+import com.github.gregwhitaker.flatbuffers.plugin.FlatBuffersLanguage
 import com.github.gregwhitaker.flatbuffers.plugin.FlatBuffersPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.logging.Logger
@@ -22,16 +23,26 @@ class FlatBuffers extends DefaultTask {
 
     @TaskAction
     void run() {
-        println outputDir
         createOutputDir()
     }
 
+    /**
+     * Creates the output directory for generated flatbuffers if it does not already exist.
+     */
     private void createOutputDir() {
         if (!outputDir.exists()) {
             getLogger().debug("Creating output directory '{}'.", outputDir.absolutePath)
             outputDir.mkdirs()
         } else {
             getLogger().debug("Skipping creation of output directory '{}' as it already exists.", outputDir.absolutePath)
+        }
+    }
+
+    private void validateLanguage(String lang) {
+        if (FlatBuffersLanguage.get(lang) == null) {
+            throw new TaskConfigurationException(path,
+                    "A problem was found with the configuration of task '" + name + "'.",
+                    new IllegalArgumentException("Unsupported value '" + lang + "' specified for property 'language'."))
         }
     }
 
@@ -49,9 +60,11 @@ class FlatBuffers extends DefaultTask {
 
     String getLanguage() {
         if (language) {
+            validateLanguage(language)
             getLogger().debug("Generating code for language '{}' specified in the task configuration.", language)
             return language.toLowerCase()
         } else if (project.flatbuffers.language) {
+            validateLanguage(project.flatbuffers.language)
             getLogger().debug("Generating code using the default language '{}' specified in the 'flatbuffers' configuration.")
             return project.flatbuffers.language.toLowerCase()
         } else {
@@ -59,6 +72,7 @@ class FlatBuffers extends DefaultTask {
                     "A problem was found with the configuration of task '" + name + "'.",
                     new IllegalArgumentException("No value has been specified for property 'language'."))
         }
+
     }
 
 }
