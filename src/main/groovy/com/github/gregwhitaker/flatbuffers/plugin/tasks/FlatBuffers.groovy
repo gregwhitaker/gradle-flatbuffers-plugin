@@ -3,7 +3,6 @@ package com.github.gregwhitaker.flatbuffers.plugin.tasks
 import com.github.gregwhitaker.flatbuffers.plugin.FlatBuffersLanguage
 import com.github.gregwhitaker.flatbuffers.plugin.FlatBuffersPlugin
 import org.gradle.api.DefaultTask
-import org.gradle.api.logging.Logger
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
@@ -27,7 +26,7 @@ class FlatBuffers extends DefaultTask {
     }
 
     /**
-     * Creates the output directory for generated flatbuffers if it does not already exist.
+     * Creates the output directory for generated FlatBuffers if it does not already exist.
      */
     private void createOutputDir() {
         if (!outputDir.exists()) {
@@ -38,6 +37,11 @@ class FlatBuffers extends DefaultTask {
         }
     }
 
+    /**
+     * Validates that the configured language is supported by FlatBuffers.
+     *
+     * @param lang language to generate
+     */
     private void validateLanguage(String lang) {
         if (FlatBuffersLanguage.get(lang) == null) {
             throw new TaskConfigurationException(path,
