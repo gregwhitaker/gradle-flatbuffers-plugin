@@ -23,8 +23,15 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 
 *Note:* Please see the "Supported Languages" section for valid `language` values.
 
-####Supported Languages
-The following languages are supported by the plugin:
+###Custom Task Types
+The plugin provides the following custom task types for generating FlatBuffers:
+
+| Type        | Description                   |
+|-------------|-------------------------------|
+| FlatBuffers | Compiles FlatBuffers schemas. |
+
+(###Supported-Languages)
+The plugin supports generating code in all languages currently supported by FlatBuffers:
 
 | Language   | Property Value |
 |------------|----------------|
@@ -36,13 +43,6 @@ The following languages are supported by the plugin:
 | Javascript | javascript     |
 | PHP        | php            |
 | GRPC       | grpc           |
-
-###Custom Task Types
-The plugin provides the following custom task types for generating FlatBuffers:
-
-| Type        | Description                   |
-|-------------|-------------------------------|
-| FlatBuffers | Compiles FlatBuffers schemas. |
 
 ###Example
 This example generates Java FlatBuffers from the schema files in the default `src/main/flatbuffers` directory and places the generated code in `src/generated/flatbuffers`.
