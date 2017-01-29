@@ -21,7 +21,7 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 | flatcPath | String | flatc         | The path to the flatc compiler.                    |
 | language  | String | null          | The language to use when compiling the FlatBuffers.|
 
-*Note:* Please see the "Supported Languages" section for valid `language` values.
+*Note:* Please see the [Supported Languages](###supported-languages) section for valid `language` values.
 
 ###Custom Task Types
 The plugin provides the following custom task types for generating FlatBuffers:
@@ -30,7 +30,7 @@ The plugin provides the following custom task types for generating FlatBuffers:
 |-------------|-------------------------------|
 | FlatBuffers | Compiles FlatBuffers schemas. |
 
-###(Supported-Languages)
+###Supported Languages
 The plugin supports generating code in all languages currently supported by FlatBuffers:
 
 | Language   | Property Value |
