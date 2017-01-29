@@ -45,7 +45,7 @@ This task type compiles FlatBuffers schemas.
 |-----------|--------|------------------------|----------|-----------------------------------------------------|
 | inputDir  | File   | `src/main/flatbuffers` | False    | The path to the schemas directory.                  |
 | outputDir | File   | null                   | True     | The path to the directory for compiled FlatBuffers. | 
-| language  | String | value in extension     | False    | The language to use when compiling the FlatBuffers. |
+| language  | String | value in extension     | False    | The language to use when compiling the schemas.     |
 
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
