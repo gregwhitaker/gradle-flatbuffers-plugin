@@ -43,7 +43,7 @@ group = 'com.github.gregwhitaker'
 pluginBundle {
     website = 'https://github.com/gregwhitaker/gradle-flatbuffers-plugin'
     vcsUrl = 'https://github.com/gregwhitaker/gradle-flatbuffers-plugin'
-    description = 'Gradle plugin for generating classes from FlatBuffers schemas'
+    description = 'Gradle plugin for generating code from Google FlatBuffers schemas.'
     tags = [ 'serialization', 'build', 'codegen' ]
 
     plugins {
