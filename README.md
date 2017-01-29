@@ -30,7 +30,7 @@ The plugin provides the following custom task types for generating FlatBuffers:
 |-------------|-------------------------------|
 | FlatBuffers | Compiles FlatBuffers schemas. |
 
-(###Supported-Languages)
+###(Supported-Languages)
 The plugin supports generating code in all languages currently supported by FlatBuffers:
 
 | Language   | Property Value |
