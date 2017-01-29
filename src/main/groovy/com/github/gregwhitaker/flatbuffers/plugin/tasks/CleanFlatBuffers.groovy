@@ -26,8 +26,7 @@ import org.gradle.api.tasks.TaskAction
 @ParallelizableTask
 class CleanFlatBuffers extends DefaultTask {
 
-    @Input
-    File outputDir
+    private File outputDir
 
     @TaskAction
     void run() {
@@ -51,6 +50,15 @@ class CleanFlatBuffers extends DefaultTask {
     @Override
     String getDescription() {
         return 'Deletes the FlatBuffers build directory.'
+    }
+
+    @Input
+    File getOutputDir() {
+        return outputDir
+    }
+
+    void setOutputDir(File outputDir) {
+        this.outputDir = outputDir
     }
 
 }

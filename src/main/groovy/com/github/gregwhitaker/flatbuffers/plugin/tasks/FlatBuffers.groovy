@@ -9,28 +9,23 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.ParallelizableTask
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.TaskExecutionException
 import org.gradle.execution.commandline.TaskConfigurationException
+
+import java.util.concurrent.TimeUnit
 
 @ParallelizableTask
 class FlatBuffers extends DefaultTask {
 
-    @Optional
-    @Input
-    File inputDir
-
-    @Input
-    File outputDir
-
-    @Optional
-    @Input
-    String language
+    private File inputDir
+    private File outputDir
+    private String language
 
     @TaskAction
     void run() {
         createOutputDir()
 
         def flatcPath = getFlatcPath()
-        def inputDir = getInputDir()
 
         getSchemas().each {
             println "Compiling: '${it}'"
@@ -38,7 +33,25 @@ class FlatBuffers extends DefaultTask {
             def cmd = "${flatcPath} --${language} -o ${outputDir} ${it}"
 
             getLogger().debug("Running command: '${cmd}'")
-            cmd.execute([], project.projectDir)
+            Process process = cmd.execute([], project.projectDir)
+            def exited = process.waitFor(30, TimeUnit.SECONDS)
+
+            if (exited) {
+                if (process.exitValue() != 0) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))
+                    StringBuilder builder = new StringBuilder()
+
+                    String line = null
+                    while ( (line = reader.readLine()) != null) {
+                        builder.append(line)
+                        builder.append(System.getProperty("line.separator"))
+                    }
+
+                    throw new TaskExecutionException(this, new Exception(builder.toString()))
+                }
+            } else {
+                throw new TaskExecutionException(this, new Exception("Timed out while compiling '" + it + "'."))
+            }
         }
     }
 
@@ -117,6 +130,10 @@ class FlatBuffers extends DefaultTask {
         return 'Assembles FlatBuffers for this project.'
     }
 
+
+
+    @Optional
+    @Input
     File getInputDir() {
         if (inputDir) {
             return inputDir
@@ -126,6 +143,21 @@ class FlatBuffers extends DefaultTask {
         }
     }
 
+    void setInputDir(File inputDir) {
+        this.inputDir = inputDir
+    }
+
+    @Input
+    File getOutputDir() {
+        return outputDir
+    }
+
+    void setOutputDir(File outputDir) {
+        this.outputDir = outputDir
+    }
+
+    @Optional
+    @Input
     String getLanguage() {
         if (language) {
             validateLanguage(language)
@@ -141,6 +173,10 @@ class FlatBuffers extends DefaultTask {
                     new IllegalArgumentException("No value has been specified for property 'language'."))
         }
 
+    }
+
+    void setLanguage(String language) {
+        this.language = language
     }
 
 }
