@@ -2,6 +2,7 @@ package com.github.gregwhitaker.flatbuffers.plugin.tasks
 
 import com.github.gregwhitaker.flatbuffers.plugin.FlatBuffersLanguage
 import com.github.gregwhitaker.flatbuffers.plugin.FlatBuffersPlugin
+import groovy.io.FileType
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
@@ -13,6 +14,10 @@ import org.gradle.execution.commandline.TaskConfigurationException
 @ParallelizableTask
 class FlatBuffers extends DefaultTask {
 
+    @Optional
+    @Input
+    File inputDir
+
     @Input
     File outputDir
 
@@ -23,6 +28,13 @@ class FlatBuffers extends DefaultTask {
     @TaskAction
     void run() {
         createOutputDir()
+
+        def flatcPath = getFlatcPath()
+        def inputDir = getInputDir()
+
+        getSchemas().each {
+            println "Generating: '${it}'"
+        }
     }
 
     /**
@@ -50,6 +62,28 @@ class FlatBuffers extends DefaultTask {
         }
     }
 
+    /**
+     * Gets the path to the FlatBuffers compiler.
+     *
+     * @return path to the FlatBuffers compiler
+     */
+    @Internal
+    private String getFlatcPath() {
+        return project.flatbuffers.flatcPath != null ? project.flatbuffers.flatcPath : 'flatc'
+    }
+
+    @Internal
+    private File[] getSchemas() {
+        def schemas = []
+        getInputDir().eachFileRecurse(FileType.FILES) { file ->
+            if (file.name.endsWith(".fbs")) {
+                schemas << file
+            }
+        }
+
+        return schemas
+    }
+
     @Internal
     @Override
     String getGroup() {
@@ -60,6 +94,15 @@ class FlatBuffers extends DefaultTask {
     @Override
     String getDescription() {
         return 'Assembles flatbuffers for this project.'
+    }
+
+    File getInputDir() {
+        if (inputDir) {
+            return inputDir
+        } else {
+            getLogger().debug("No 'inputDir' specified, using default inputDir '${project.projectDir}/src/main/flatbuffers}'.")
+            return new File("${project.projectDir}/src/main/flatbuffers")
+        }
     }
 
     String getLanguage() {

@@ -37,6 +37,12 @@ class FlatBuffersPlugin implements Plugin<Project> {
         })
     }
 
+    /**
+     * Automatically adds a 'clean' task for any FlatBuffers tasks in the project.
+     *
+     * @param project Gradle project
+     * @param task FlatBuffers task
+     */
     void addCleanTask(Project project, FlatBuffers task) {
         def taskName = 'clean' + GUtil.toCamelCase(task.name)
         project.tasks.create(taskName, CleanFlatBuffers) {
