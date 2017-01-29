@@ -33,11 +33,13 @@ The plugin provides the following custom task types for generating FlatBuffers:
 ####FlatBuffers
 This task type compiles FlatBuffers schemas.
 
+
 | Property  | Type   | Default Value          | Required | Description                                         |
 |-----------|--------|------------------------|----------|-----------------------------------------------------|
 | inputDir  | File   | `src/main/flatbuffers` | False    | The path to the schemas directory.                  |
 | outputDir | File   | null                   | True     | The path to the directory for compiled FlatBuffers. | 
 | language  | String | value in extension     | False    | The language to use when compiling the FlatBuffers. |
+
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
 
