@@ -1,19 +1,18 @@
-gradle-flatbuffers-plugin
-===
+# gradle-flatbuffers-plugin
 [![Build Status](https://travis-ci.org/gregwhitaker/gradle-flatbuffers-plugin.svg?branch=master)](https://travis-ci.org/gregwhitaker/gradle-flatbuffers-plugin)
 
 Gradle plugin for generating code from Google [FlatBuffers](https://google.github.io/flatbuffers/) schemas.
 
-##Requirements
+## Requirements
 
 This plugin requires that the FlatBuffers compiler be installed on the system.
 
 For information on building and installing the compiler please refer to the [FlatBuffers Documentation](https://google.github.io/flatbuffers/flatbuffers_guide_building.html).
 
-##Usage
+## Usage
 Please see the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/com.github.gregwhitaker.flatbuffers) for instructions on including this plugin in your project.
 
-###Extension Properties
+### Extension Properties
 The plugin defines the following extension properties in the `flatbuffers` closure:
 
 | Property  | Type   | Default Value | Required | Description                                        |
@@ -23,14 +22,14 @@ The plugin defines the following extension properties in the `flatbuffers` closu
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
 
-###Custom Task Types
+### Custom Task Types
 The plugin provides the following custom task types for generating FlatBuffers:
 
 | Type                        | Description                   |
 |-----------------------------|-------------------------------|
 | [FlatBuffers](#flatbuffers) | Compiles FlatBuffers schemas. |
 
-####FlatBuffers
+#### FlatBuffers
 This task type compiles FlatBuffers schemas.
 
 ```$groovy
@@ -50,7 +49,7 @@ This task type compiles FlatBuffers schemas.
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
 
-###Supported Languages
+### Supported Languages
 The plugin supports generating code in all languages currently supported by FlatBuffers:
 
 | Language   | Property Value |
@@ -64,7 +63,7 @@ The plugin supports generating code in all languages currently supported by Flat
 | PHP        | php            |
 | GRPC       | grpc           |
 
-###Example
+### Example
 This example generates Java FlatBuffers from the schema files in the default `src/main/flatbuffers` directory and places the generated code in `src/generated/flatbuffers`.
 
 ```$groovy
@@ -84,11 +83,11 @@ This example generates Java FlatBuffers from the schema files in the default `sr
     }
 ```
 
-##Bugs and Feedback
+## Bugs and Feedback
 
 For bugs, questions and discussions please use the [Github Issues](https://github.com/gregwhitaker/gradle-flatbuffers-plugin/issues).
 
-##License
+## License
 Copyright 2017 Greg Whitaker
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
