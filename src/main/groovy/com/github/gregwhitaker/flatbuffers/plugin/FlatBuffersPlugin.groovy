@@ -33,11 +33,16 @@ class FlatBuffersPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.extensions.create('flatbuffers', FlatBuffersPluginExtension.class)
 
+        def fbTasks = []
         project.afterEvaluate({
             project.tasks.withType(FlatBuffers).each {
-                addCleanTask(project, it)
+                fbTasks << it
                 applySourceSets(project, it)
                 reconfigurePlugins(project, it)
+            }
+
+            fbTasks.each {
+                addCleanTask(project, it)
             }
 
             applyDependencies(project)
@@ -81,9 +86,9 @@ class FlatBuffersPlugin implements Plugin<Project> {
     void reconfigurePlugins(Project project, FlatBuffers task) {
         // Intellij specific configurations
         if (project.plugins.hasPlugin(IdeaPlugin)) {
-            project.idea.module.generatedSourceDirs = [
-                    task.getOutputDir()
-            ]
+            if (!project.idea.module.generatedSourceDirs.contains(task.outputDir)) {
+                project.idea.module.generatedSourceDirs.add(task.outputDir)
+            }
         }
     }
 
