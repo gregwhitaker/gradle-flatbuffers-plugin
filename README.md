@@ -70,7 +70,7 @@ This example generates Java FlatBuffers from the schema files in the default `sr
     import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
     
     plugins {
-      id "com.github.gregwhitaker.flatbuffers" version "1.0.1"
+      id "com.github.gregwhitaker.flatbuffers" version "1.0.2"
     }
 
     flatbuffers {
