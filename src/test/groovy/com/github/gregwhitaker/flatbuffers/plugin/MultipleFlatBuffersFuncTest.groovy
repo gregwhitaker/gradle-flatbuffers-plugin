@@ -23,7 +23,6 @@ import spock.lang.Specification
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
-
 class MultipleFlatBuffersFuncTest extends Specification {
 
     @Rule
