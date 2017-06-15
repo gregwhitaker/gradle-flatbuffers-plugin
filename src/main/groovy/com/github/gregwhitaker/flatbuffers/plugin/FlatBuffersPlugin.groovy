@@ -72,8 +72,13 @@ class FlatBuffersPlugin implements Plugin<Project> {
         SourceSetContainer sourceSets = (SourceSetContainer) project.getProperties().get("sourceSets")
 
         if (project.plugins.hasPlugin(JavaPlugin)) {
-            sourceSets.getByName("main").java.srcDir(task.getInputDir())
-            sourceSets.getByName("main").java.srcDir(task.getOutputDir())
+            if (!sourceSets.getByName("main").java.srcDirs.contains(task.getInputDir())) {
+                sourceSets.getByName("main").java.srcDirs.add(task.getInputDir())
+            }
+
+            if (!sourceSets.getByName("main").java.srcDirs.contains(task.getOutputDir())) {
+                sourceSets.getByName("main").java.srcDirs.add(task.getOutputDir())
+            }
         }
     }
 
