@@ -85,7 +85,7 @@ This example generates Java FlatBuffers from the schema files in the default `sr
 
 ## Bugs and Feedback
 
-For bugs, questions and discussions please use the [Github Issues](https://github.com/gregwhitaker/gradle-flatbuffers-plugin/issues).
+For bugs, questions and discussions please use the [Github Issues](https://github.com/netifi/gradle-flatbuffers-plugin/issues).
 
 ## License
 Copyright 2017 Netifi Inc.
