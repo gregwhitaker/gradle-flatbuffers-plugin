@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Greg Whitaker
+ * Copyright 2017 Netifi Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.gregwhitaker.flatbuffers.plugin
+package io.netifi.flatbuffers.plugin
 
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
@@ -57,12 +57,12 @@ class MultipleFlatBuffersFuncTest extends Specification {
     def "supports multiple flatbuffers tasks"() {
         given:
         buildFile << """
-            import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
+            import io.netifi.flatbuffers.plugin.tasks.FlatBuffers
 
             plugins {
                 id 'idea'
                 id 'java'
-                id 'com.github.gregwhitaker.flatbuffers'
+                id 'io.netifi.flatbuffers'
             }
             
             flatbuffers {

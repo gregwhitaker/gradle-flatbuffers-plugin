@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Greg Whitaker
+ * Copyright 2017 Netifi Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.gregwhitaker.flatbuffers.plugin
+package io.netifi.flatbuffers.plugin
 
 /**
  * Enumeration of all languages supported by the FlatBuffers compiler.

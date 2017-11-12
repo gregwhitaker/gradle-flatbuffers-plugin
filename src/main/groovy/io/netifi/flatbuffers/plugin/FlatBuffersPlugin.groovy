@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Greg Whitaker
+ * Copyright 2017 Netifi Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.github.gregwhitaker.flatbuffers.plugin
+package io.netifi.flatbuffers.plugin
 
-import com.github.gregwhitaker.flatbuffers.plugin.tasks.CleanFlatBuffers
-import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
+import io.netifi.flatbuffers.plugin.tasks.CleanFlatBuffers
+import io.netifi.flatbuffers.plugin.tasks.FlatBuffers
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin

@@ -10,7 +10,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.gradle.build-scan' version '1.4'
+    id 'com.gradle.build-scan' version '1.9'
 }
 
 buildScan {
@@ -37,19 +37,19 @@ dependencies {
     }
 }
 
-version = '1.0.2'
-group = 'com.github.gregwhitaker'
+version = '1.0.3'
+group = 'io.netifi'
 
 pluginBundle {
-    website = 'https://github.com/gregwhitaker/gradle-flatbuffers-plugin'
-    vcsUrl = 'https://github.com/gregwhitaker/gradle-flatbuffers-plugin'
+    website = 'https://github.com/netifi/gradle-flatbuffers-plugin'
+    vcsUrl = 'https://github.com/netifi/gradle-flatbuffers-plugin'
     description = 'Gradle plugin for generating code from Google FlatBuffers schemas.'
     tags = [ 'serialization', 'build', 'codegen' ]
 
     plugins {
         flatBuffersPlugin {
-            id = 'com.github.gregwhitaker.flatbuffers'
-            displayName = 'com.github.gregwhitaker.flatbuffers'
+            id = 'io.netifi.flatbuffers'
+            displayName = 'io.netifi.flatbuffers'
         }
     }
 }

@@ -67,10 +67,10 @@ The plugin supports generating code in all languages currently supported by Flat
 This example generates Java FlatBuffers from the schema files in the default `src/main/flatbuffers` directory and places the generated code in `src/generated/flatbuffers`.
 
 ```$groovy
-    import com.github.gregwhitaker.flatbuffers.plugin.tasks.FlatBuffers
+    import FlatBuffers
     
     plugins {
-      id "com.github.gregwhitaker.flatbuffers" version "1.0.2"
+      id "io.netifi.flatbuffers" version "1.0.2"
     }
 
     flatbuffers {
