@@ -25,14 +25,12 @@ import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.ParallelizableTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskExecutionException
 import org.gradle.execution.commandline.TaskConfigurationException
 
 import java.util.concurrent.TimeUnit
 
-@ParallelizableTask
 class FlatBuffers extends DefaultTask {
 
     private File inputDir
