@@ -106,7 +106,7 @@ class FlatBuffersPlugin implements Plugin<Project> {
         // Java specific dependencies
         if (project.plugins.hasPlugin(JavaPlugin)) {
             project.dependencies {
-                compile 'com.github.davidmoten:flatbuffers-java:1.4.0.1'
+                compile 'com.google.flatbuffers:flatbuffers-java:1.8.0'
             }
         }
     }
