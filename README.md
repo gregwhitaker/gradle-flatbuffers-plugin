@@ -59,7 +59,7 @@ The plugin supports generating code in all languages currently supported by Flat
 | C#         | csharp         |
 | Go         | go             |
 | Python     | python         |
-| Javascript | javascript     |
+| Javascript | js             |
 | PHP        | php            |
 | GRPC       | grpc           |
 
