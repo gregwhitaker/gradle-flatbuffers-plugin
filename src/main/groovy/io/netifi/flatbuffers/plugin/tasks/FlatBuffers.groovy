@@ -36,6 +36,7 @@ class FlatBuffers extends DefaultTask {
     private File inputDir
     private File outputDir
     private String language
+    private String extraArgs = new String()
 
     @TaskAction
     void run() {
@@ -46,7 +47,7 @@ class FlatBuffers extends DefaultTask {
         getSchemas().each {
             println "Compiling: '${it}'"
 
-            def cmd = "${flatcPath} --${language} -o ${outputDir} ${it}"
+            def cmd = "${flatcPath} --${language} -o ${outputDir} ${extraArgs} ${it}"
 
             getLogger().debug("Running command: '${cmd}'")
 
@@ -196,6 +197,16 @@ class FlatBuffers extends DefaultTask {
 
     void setLanguage(String language) {
         this.language = language
+    }
+
+    void setExtraArgs(String extraArgs) {
+        this.extraArgs = extraArgs 
+    }
+
+    @Optional
+    @Input
+    String getExtraArgs() {
+        return this.extraArgs;
     }
 
 }
