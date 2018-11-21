@@ -199,14 +199,13 @@ class FlatBuffers extends DefaultTask {
         this.language = language
     }
 
-    void setExtraArgs(String extraArgs) {
-        this.extraArgs = extraArgs 
-    }
-
     @Optional
     @Input
     String getExtraArgs() {
         return this.extraArgs;
     }
 
+    void setExtraArgs(String extraArgs) {
+        this.extraArgs = extraArgs
+    }
 }
