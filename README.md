@@ -37,6 +37,7 @@ This task type compiles FlatBuffers schemas.
         inputDir = file("src/main/flatbuffers")
         outputDir = file("src/generated/flatbuffers")
         language = 'java'
+        extraArgs = '--grpc'
     }
 ```
 
@@ -45,6 +46,7 @@ This task type compiles FlatBuffers schemas.
 | inputDir  | File   | `src/main/flatbuffers` | False    | The path to the schemas directory.                  |
 | outputDir | File   | null                   | True     | The path to the directory for compiled FlatBuffers. | 
 | language  | String | value in extension     | False    | The language to use when compiling the schemas.     |
+| extraArgs | String | null                   | False    | Any additional arguments to flatc (e.g., --grpc)    |
 
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
