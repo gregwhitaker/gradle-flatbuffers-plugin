@@ -72,7 +72,7 @@ This example generates Java FlatBuffers from the schema files in the default `sr
     import io.netifi.flatbuffers.plugin.tasks.FlatBuffers
     
     plugins {
-      id "io.netifi.flatbuffers" version "1.0.3"
+      id "io.netifi.flatbuffers" version "1.0.5"
     }
 
     flatbuffers {
