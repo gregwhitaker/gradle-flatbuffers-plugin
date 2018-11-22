@@ -3,11 +3,15 @@ sudo: false
 jdk:
 - oraclejdk8
 install: true
-script: ./ci/travis.sh
+script: "./ci/travis.sh"
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-  - $HOME/.m2
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.m2"
+env:
+  global:
+  - secure: MiIY7wiWx4/X/Ue3XZfJsz6CJybIs9LVfPHpJ1X8c/ehx5hjdtmd3Fc2LGOPO4yH0WJZyJ6UBQaijioZGzkZdju1ZEokwPlcytAsvf/cjAxO+MhCVffrW7E/zZWpKhbqfg29WnzzFk2YL73J+QXqg4xqrhcxMOTyrjxQjmMvCJUSTXNQAq37tVaivNirgCYPPRHXSQ81JDzCy+NrQWFXxs/Q6kPAZ/pMLTRhtIqOcdhfIYrclTGCY3JG5l9NHQssFBgTHP3fFEST2qGkuVCF091h3kf5imnv+xdRc/l258uyaTSZUcfEYUtW12ZXjlaHBkYPknJtvIL557tfCY1Vch4PPSqed7zi60dalNW15ibTJOwWXUhw2X6I7/WZJBGzEtUS7sUtTgwcOfTRDtyMUoiy6vxswy1isIrxjiwZ1sX6DhEU9IG5jR3MH7hZ+o66Ms4tYcq0zE0QnbxDNTn72BJJ264I0OyXiMubiaml8yxWKRrHMVxKHsJLmp3oUey6IMnE3TiVS9pU+9rTLlzNsIuEnClFpyePHw+gjSybgP4w4pWC8Ewli8LgtPIFZmg6laKNqs7ZgX95RrsyXScfcG3LSqawRHxg6dG/puQ84+27xd9ipIb5TBoquJsWo7DJyT1VYLNcFgf9wZKdCNm7i8vD1+Ae/lVXDXvj/AEBA5A=
+  - secure: QQY5OmVKvrfYvcQDLWW2LZJtS7s800sxz/30nKlsO6rj4OwJFj/EEZBtkfT5xiuYsD3lnnlDOK91ObJT8TvdMaP/yL1t1YJJiqGGYVcHBdnhg+FydgZpre2liNhg0fXa2yf7hzezS57LpURgRdP5iJ+6tEVBPtooEs/7Bfo7Tn32yLmtUIxkXx8dxxr7ij2RMpOjrtjUCeBADz7GpPifcbdbNNDTIvY4kPJdF/jaaK8sAedjig1NPAexr6MHq01B+Rppo7dRvCkOvyRTH2hKPzIIjPIGdCPPaUrYJBeO+figNHls+1PP3qRbTUYuqitfVwgzr83EpY8PKDOHHNpER/r85/icB7Km9jI+ZwD31MohGbkg0yxLiBLiPcBAQDzHML0K3l1OA6xSUywQxMLb8Lzpj1xKoTm/XBx54H6mRVw34/6IZm99kzI76KI+b1S1Y2UKBoyl8FcYx/5LsQCenWefLQtq4eiuCa0j4nttPGXHG3QOdP8Ql0gSmKIPxJHze7lYAS4qLfdsomb5xPQQ5mHUXQTBb37gVuZtq6GaToNqsEBBh9Eqc18hH3jAh5EsEmaW4Y+ZQRVed4EVCDrFcKs3fE/ZR9wzMu6JmpFLGCT7sQTMTjLq/0eLAqkfWTsOeuBd3oTX6OGp3SzfWk5ezPofMQNBeHT5scWxCJsuO7I=
