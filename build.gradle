@@ -11,6 +11,7 @@ buildscript {
 
 plugins {
     id 'com.gradle.build-scan' version '1.16'
+    id 'com.github.hierynomus.license' version '0.14.0'
 }
 
 buildScan {
@@ -37,8 +38,8 @@ dependencies {
     }
 }
 
-version = '1.0.4'
 group = 'io.netifi'
+version = '1.0.5'
 
 pluginBundle {
     website = 'https://github.com/netifi/gradle-flatbuffers-plugin'
@@ -52,4 +53,10 @@ pluginBundle {
             displayName = 'io.netifi.flatbuffers'
         }
     }
+}
+
+license {
+    header rootProject.file('codequality/HEADER')
+    strictCheck true
+    excludes([ "**/*.json", "**/*.html", "**/*.js" ])
 }
