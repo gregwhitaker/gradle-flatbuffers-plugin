@@ -16,26 +16,32 @@
 package io.netifi.flatbuffers.plugin.tasks
 
 import groovy.io.FileType
+import groovy.transform.CompileStatic
 import io.netifi.flatbuffers.plugin.FlatBuffersLanguage
 import io.netifi.flatbuffers.plugin.FlatBuffersPlugin
+import io.netifi.flatbuffers.plugin.FlatBuffersPluginExtension
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.TaskExecutionException
+import org.gradle.api.tasks.*
 import org.gradle.execution.commandline.TaskConfigurationException
+import org.gradle.process.ExecSpec
+import org.gradle.process.internal.ExecException
 
-import java.util.concurrent.TimeUnit
-
+@CompileStatic
 class FlatBuffers extends DefaultTask {
 
-    private File inputDir
-    private File outputDir
-    private String language
-    private String extraArgs = new String()
+    @Optional
+    @InputDirectory
+    File inputDir
+
+    @OutputDirectory
+    File outputDir
+
+    @Input
+    String language
+
+    @Input
+    @Optional
+    String extraArgs = ""
 
     @TaskAction
     void run() {
@@ -43,34 +49,22 @@ class FlatBuffers extends DefaultTask {
 
         def flatcPath = getFlatcPath()
 
-        getSchemas().each {
-            println "Compiling: '${it}'"
-
-            def cmd = "${flatcPath} --${language} -o ${outputDir} ${extraArgs} ${it}"
-
-            getLogger().debug("Running command: '${cmd}'")
+        getSchemas().each { File schema ->
+            logger.info("Compiling: '$schema.absolutePath'")
 
             try {
-                Process process = cmd.execute([], project.projectDir)
-                def exited = process.waitFor(30, TimeUnit.SECONDS)
+                project.exec { ExecSpec spec ->
+                    spec.executable = flatcPath
+                    spec.args "--$language", '-o',
+                              "$outputDir", "$extraArgs", "$schema.absolutePath"
+                    spec.workingDir(project.projectDir)
 
-                if (exited) {
-                    if (process.exitValue() != 0) {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))
-                        StringBuilder builder = new StringBuilder()
-
-                        String line = null
-                        while ( (line = reader.readLine()) != null) {
-                            builder.append(line)
-                            builder.append(System.getProperty("line.separator"))
-                        }
-
-                        throw new TaskExecutionException(this, new Exception(builder.toString()))
+                    doFirst {
+                        logger.debug("Running command: '${spec.commandLine.join(' ')}'")
                     }
-                } else {
-                    throw new TaskExecutionException(this, new Exception("Timed out while compiling '${it}'."))
-                }
-            } catch (IOException e) {
+                }.assertNormalExitValue()
+
+            } catch (ExecException e) {
                 throw new TaskExecutionException(this, e)
             }
         }
@@ -81,10 +75,10 @@ class FlatBuffers extends DefaultTask {
      */
     private void createOutputDir() {
         if (!outputDir.exists()) {
-            getLogger().debug("Creating output directory '{}'.", outputDir.absolutePath)
+            logger.debug("Creating output directory '{}'.", outputDir.absolutePath)
             outputDir.mkdirs()
         } else {
-            getLogger().debug("Skipping creation of output directory '{}' as it already exists.", outputDir.absolutePath)
+            logger.debug("Skipping creation of output directory '{}' as it already exists.", outputDir.absolutePath)
         }
     }
 
@@ -106,20 +100,8 @@ class FlatBuffers extends DefaultTask {
      *
      * @return path to the FlatBuffers compiler
      */
-    @Internal
     private String getFlatcPath() {
-        String path = project.flatbuffers.flatcPath
-
-        if (path) {
-            if (!path.endsWith("/flatc")) {
-                path += "/flatc"
-            }
-        } else {
-            // Assuming that flatc is on the system path
-            path = "flatc"
-        }
-
-        return path
+        return project.extensions.getByType(FlatBuffersPluginExtension).flatcPath ?: 'flatc'
     }
 
     /**
@@ -127,15 +109,13 @@ class FlatBuffers extends DefaultTask {
      *
      * @return a list of all schema files to compile
      */
-    @Internal
-    private File[] getSchemas() {
+    private List<File> getSchemas() {
         def schemas = []
         getInputDir().eachFileRecurse(FileType.FILES) { file ->
-            if (file.name.endsWith(".fbs")) {
+            if (file.name ==~ /^.*\.fbs?$/) {
                 schemas << file
             }
         }
-
         return schemas
     }
 
@@ -151,13 +131,11 @@ class FlatBuffers extends DefaultTask {
         return 'Assembles FlatBuffers for this project.'
     }
 
-    @Optional
-    @InputDirectory
     File getInputDir() {
         if (inputDir) {
             return inputDir
         } else {
-            getLogger().debug("No 'inputDir' specified, using default inputDir '${project.projectDir}/src/main/flatbuffers}'.")
+            logger.debug("No 'inputDir' specified, using default inputDir '${project.projectDir}/src/main/flatbuffers}'.")
             return new File("${project.projectDir}/src/main/flatbuffers")
         }
     }
@@ -166,26 +144,20 @@ class FlatBuffers extends DefaultTask {
         this.inputDir = inputDir
     }
 
-    @OutputDirectory
-    File getOutputDir() {
-        return outputDir
-    }
-
     void setOutputDir(File outputDir) {
         this.outputDir = outputDir
     }
 
-    @Optional
-    @Input
     String getLanguage() {
+        FlatBuffersPluginExtension pluginExtension = project.extensions.getByType(FlatBuffersPluginExtension)
         if (language) {
             validateLanguage(language)
-            getLogger().debug("Compiling code for language '{}' specified in the task configuration.", language)
+            logger.debug("Compiling code for language '{}' specified in the task configuration.", language)
             return language.toLowerCase()
-        } else if (project.flatbuffers.language) {
-            validateLanguage(project.flatbuffers.language)
-            getLogger().debug("Compiling code using the default language '{}' specified in the 'flatbuffers' configuration.")
-            return project.flatbuffers.language.toLowerCase()
+        } else if (pluginExtension.language) {
+            validateLanguage(pluginExtension.language)
+            logger.debug("Compiling code using the default language '{}' specified in the 'flatbuffers' configuration.")
+            return pluginExtension.language.toLowerCase()
         } else {
             throw new TaskConfigurationException(path,
                     "A problem was found with the configuration of task '" + name + "'.",
@@ -194,17 +166,7 @@ class FlatBuffers extends DefaultTask {
 
     }
 
-    void setLanguage(String language) {
-        this.language = language
-    }
-
-    @Optional
-    @Input
     String getExtraArgs() {
         return this.extraArgs;
-    }
-
-    void setExtraArgs(String extraArgs) {
-        this.extraArgs = extraArgs
     }
 }
