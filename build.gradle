@@ -23,13 +23,15 @@ pluginBundle {
     tags = [ 'serialization', 'build', 'codegen' ]
 }
 
+
+
 gradlePlugin {
     plugins {
         flatBuffersPlugin {
             id = 'io.netifi.flatbuffers'
             displayName = 'FlatBuffers Plugin'
             implementationClass = 'io.netifi.flatbuffers.plugin.FlatBuffersPlugin'
-            description = 'Gradle plugin for generating code from Google FlatBuffers schemas.'
+            description = "Gradle plugin for generating code from Google FlatBuffers schemas."
         }
     }
 }

@@ -50,18 +50,22 @@ class FlatBuffers extends DefaultTask {
         def flatcPath = getFlatcPath()
 
         getSchemas().each { File schema ->
-            logger.info("Compiling: '$schema.absolutePath'")
+            println "Compiling: '$schema.absolutePath'"
 
             try {
                 project.exec { ExecSpec spec ->
-                    spec.executable = flatcPath
-                    spec.args "--$language", '-o',
-                              "$outputDir", "$extraArgs", "$schema.absolutePath"
+                    spec.executable flatcPath
+                    spec.args "--$language"
+                    if (outputDir) {
+                        spec.args '-o', "$outputDir.absolutePath"
+                    }
+                    if (extraArgs) {
+                        spec.args extraArgs.split()
+                    }
+                    spec.args "$schema.absolutePath"
                     spec.workingDir(project.projectDir)
 
-                    doFirst {
-                        logger.debug("Running command: '${spec.commandLine.join(' ')}'")
-                    }
+                    logger.debug("Running command: '${spec.commandLine.join(' ')}'")
                 }.assertNormalExitValue()
 
             } catch (ExecException e) {
@@ -112,7 +116,7 @@ class FlatBuffers extends DefaultTask {
     private List<File> getSchemas() {
         def schemas = []
         getInputDir().eachFileRecurse(FileType.FILES) { file ->
-            if (file.name ==~ /^.*\.fbs?$/) {
+            if (file.name ==~ /^.*\.fbs$/) {
                 schemas << file
             }
         }
@@ -140,14 +144,6 @@ class FlatBuffers extends DefaultTask {
         }
     }
 
-    void setInputDir(File inputDir) {
-        this.inputDir = inputDir
-    }
-
-    void setOutputDir(File outputDir) {
-        this.outputDir = outputDir
-    }
-
     String getLanguage() {
         FlatBuffersPluginExtension pluginExtension = project.extensions.getByType(FlatBuffersPluginExtension)
         if (language) {
@@ -164,9 +160,5 @@ class FlatBuffers extends DefaultTask {
                     new IllegalArgumentException("No value has been specified for property 'language'."))
         }
 
-    }
-
-    String getExtraArgs() {
-        return this.extraArgs;
     }
 }

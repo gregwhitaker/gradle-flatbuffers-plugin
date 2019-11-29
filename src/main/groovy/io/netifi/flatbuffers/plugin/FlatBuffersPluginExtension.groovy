@@ -24,5 +24,5 @@ class FlatBuffersPluginExtension {
 
     String language
 
-    String flatBuffersVersion = '1.11.0'
+    String flatBuffersVersion = '1.10.0'
 }

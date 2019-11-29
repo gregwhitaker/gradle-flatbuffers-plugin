@@ -110,7 +110,7 @@ class FlatBuffersPlugin implements Plugin<Project> {
         project.pluginManager.withPlugin('java') {
             project.configurations.getByName(IMPLEMENTATION_CONFIGURATION_NAME) { Configuration config ->
                 config.defaultDependencies {
-                    def version = "com.google.flatbuffers:flatbuffers-java:${extension.flatBuffersVersion ?: '1.11.0'}"
+                    def version = "com.google.flatbuffers:flatbuffers-java:${extension.flatBuffersVersion ?: '1.10.0'}"
                     it.add(project.dependencies.create(version))
                 }
             }
