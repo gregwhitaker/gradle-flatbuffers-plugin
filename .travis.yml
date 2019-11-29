@@ -1,7 +1,9 @@
+dist: trusty
 language: java
 sudo: false
 jdk:
   - oraclejdk8
+  - oraclejdk9
 install: true
 script: "./ci/travis.sh"
 before_cache:
