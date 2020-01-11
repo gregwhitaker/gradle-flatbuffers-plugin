@@ -21,17 +21,20 @@ pluginBundle {
     website = 'https://github.com/netifi/gradle-flatbuffers-plugin'
     vcsUrl = 'https://github.com/netifi/gradle-flatbuffers-plugin'
     tags = [ 'serialization', 'build', 'codegen' ]
+
+    plugins {
+        flatBuffersPlugin {
+            description = "Gradle plugin for generating code from Google FlatBuffers schemas."
+            displayName = 'FlatBuffers Plugin'
+        }
+    }
 }
-
-
 
 gradlePlugin {
     plugins {
         flatBuffersPlugin {
             id = 'io.netifi.flatbuffers'
-            displayName = 'FlatBuffers Plugin'
             implementationClass = 'io.netifi.flatbuffers.plugin.FlatBuffersPlugin'
-            description = "Gradle plugin for generating code from Google FlatBuffers schemas."
         }
     }
 }

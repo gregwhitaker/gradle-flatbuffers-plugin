@@ -63,12 +63,12 @@ class FlatBuffersPlugin implements Plugin<Project> {
     /**
      * Adds a 'clean' flatBuffers for any FlatBuffers tasks in the project.
      *
-     * @param flatBuffers {@link FlatBuffers} flatBuffers
+     * @param flatBuffersTask {@link FlatBuffers} flatBuffers
      */
-    void addCleanTask(FlatBuffers flatBuffers) {
-        def taskName = "clean${GUtil.toCamelCase(flatBuffers.name)}"
+    void addCleanTask(FlatBuffers flatBuffersTask) {
+        def taskName = "clean${GUtil.toCamelCase(flatBuffersTask.name)}"
         project.tasks.create(name: taskName, type: Delete) { Delete task ->
-            task.delete flatBuffers.outputDir
+            task.delete flatBuffersTask.outputDir
         }
     }
 
@@ -109,10 +109,8 @@ class FlatBuffersPlugin implements Plugin<Project> {
         // Java specific dependencies
         project.pluginManager.withPlugin('java') {
             project.configurations.getByName(IMPLEMENTATION_CONFIGURATION_NAME) { Configuration config ->
-                config.defaultDependencies {
-                    def version = "com.google.flatbuffers:flatbuffers-java:${extension.flatBuffersVersion ?: '1.10.0'}"
-                    it.add(project.dependencies.create(version))
-                }
+                def flatBufferVersion = "com.google.flatbuffers:flatbuffers-java:${extension.flatBuffersVersion ?: '1.10.0'}"
+                config.dependencies.add(project.dependencies.create(flatBufferVersion))
             }
         }
     }

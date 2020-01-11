@@ -27,7 +27,7 @@ import java.nio.file.Paths
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
-@IgnoreIf({ env.TRAVIS || env.CI })
+@IgnoreIf({ !(env.TRAVIS || env.CI) })
 @Requires({ os.linux })
 class FlatcExecutableFromPathTest extends Specification {
 
@@ -47,7 +47,7 @@ class FlatcExecutableFromPathTest extends Specification {
         testProjectDir.newFolder("src", "main", 'flatbuffers')
         bufferSpec = testProjectDir.newFile("src/main/flatbuffers/vehicle.fbs")
         outputDirPath = outputDir.absolutePath
-        flatcPath = "which -p flatc".execute().text
+        flatcPath = "which -p flatc".execute().text.trim()
     }
 
     def "can find flatc compiler on system path" () {
@@ -62,7 +62,7 @@ class FlatcExecutableFromPathTest extends Specification {
             
             flatbuffers {
                 language = 'java'
-                flatcPath = 'flatc'
+                flatcPath = '$flatcPath'
             }
             
             task flatBuffers1(type: FlatBuffers) {

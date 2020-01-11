@@ -15,10 +15,11 @@ Please see the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/io.netif
 ### Extension Properties
 The plugin defines the following extension properties in the `flatbuffers` closure:
 
-| Property  | Type   | Default Value | Required | Description                                        |
-|-----------|--------|---------------|----------|----------------------------------------------------|
-| flatcPath | String | flatc         | False    | The path to the flatc compiler.                    |
-| language  | String | null          | False    | The language to use when compiling the FlatBuffers.|
+|Property     | Type   | Default Value | Required | Description                                        |
+|--------------|--------|---------------|----------|----------------------------------------------------|
+| flatcPath    | String | flatc         | False    | The path to the flatc compiler.                    |
+| language     | String | null          | False    | The language to use when compiling the FlatBuffers.|
+| flatBuffersVersion | String | 1.10.0        | False    | The version of the java maven binaries to include. |
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
 
