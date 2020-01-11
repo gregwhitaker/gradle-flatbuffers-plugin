@@ -27,7 +27,7 @@ import java.nio.file.Paths
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
-@IgnoreIf({ !(env.TRAVIS || env.CI) })
+@IgnoreIf({ env.TRAVIS || env.CI })
 @Requires({ os.linux })
 class FlatcExecutableFromPathTest extends Specification {
 
