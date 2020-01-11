@@ -15,68 +15,74 @@
  */
 package io.netifi.flatbuffers.plugin
 
-import io.netifi.flatbuffers.plugin.tasks.CleanFlatBuffers
+import groovy.transform.CompileStatic
 import io.netifi.flatbuffers.plugin.tasks.FlatBuffers
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPlugin
-import org.gradle.api.tasks.SourceSetContainer
-import org.gradle.plugins.ide.idea.IdeaPlugin
+import org.gradle.api.artifacts.Configuration
+import org.gradle.api.file.SourceDirectorySet
+import org.gradle.api.plugins.BasePlugin
+import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.Delete
+import org.gradle.api.tasks.SourceSet
+import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.gradle.util.GUtil
 
+import static org.gradle.api.plugins.JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME
+
+@CompileStatic
 class FlatBuffersPlugin implements Plugin<Project> {
 
     public static final String GROUP = 'FlatBuffers'
+    public static final String FLAT_BUFFERS_EXTENSION_NAME = 'flatbuffers'
+
+    private FlatBuffersPluginExtension extension
+    private Project project
 
     @Override
     void apply(Project project) {
-        project.extensions.create('flatbuffers', FlatBuffersPluginExtension.class)
+        this.project = project
+        configureProject()
+    }
 
-        def fbTasks = []
-        project.afterEvaluate({
+    void configureProject() {
+        extension = project.extensions.create(FLAT_BUFFERS_EXTENSION_NAME,
+                                              FlatBuffersPluginExtension)
+        project.pluginManager.apply(BasePlugin)
+
+        project.afterEvaluate {
             project.tasks.withType(FlatBuffers).each {
-                fbTasks << it
-                applySourceSets(project, it)
-                reconfigurePlugins(project, it)
+                applySourceSets(it)
+                reconfigurePlugins(it)
+                addCleanTask(it)
             }
-
-            fbTasks.each {
-                addCleanTask(project, it)
-            }
-
             applyDependencies(project)
-        })
+        }
     }
 
     /**
-     * Adds a 'clean' task for any FlatBuffers tasks in the project.
+     * Adds a 'clean' flatBuffers for any FlatBuffers tasks in the project.
      *
-     * @param project Gradle project
-     * @param task {@link FlatBuffers} task
+     * @param flatBuffersTask {@link FlatBuffers} flatBuffers
      */
-    void addCleanTask(Project project, FlatBuffers task) {
-        def taskName = 'clean' + GUtil.toCamelCase(task.name)
-        project.tasks.create(taskName, CleanFlatBuffers) {
-            outputDir = task.outputDir
+    void addCleanTask(FlatBuffers flatBuffersTask) {
+        def taskName = "clean${GUtil.toCamelCase(flatBuffersTask.name)}"
+        project.tasks.create(name: taskName, type: Delete) { Delete task ->
+            task.delete flatBuffersTask.outputDir
         }
     }
 
     /**
      * Adds source sets for the FlatBuffers input and output directories.
      *
-     * @param project Gradle project
      * @param task {@link FlatBuffers} task
      */
-    void applySourceSets(Project project, FlatBuffers task) {
-        SourceSetContainer sourceSets = (SourceSetContainer) project.getProperties().get("sourceSets")
-
-        if (project.plugins.hasPlugin(JavaPlugin)) {
-            if (!sourceSets.getByName("main").java.srcDirs.contains(task.getInputDir())) {
-                sourceSets.getByName("main").java.srcDirs.add(task.getInputDir())
-            }
-
-            if (!sourceSets.getByName("main").java.srcDirs.contains(task.getOutputDir())) {
-                sourceSets.getByName("main").java.srcDirs.add(task.getOutputDir())
+    void applySourceSets(FlatBuffers task) {
+        project.pluginManager.withPlugin('java') {
+            def javaPlugin = project.convention.getPlugin(JavaPluginConvention)
+            def sourceSets = javaPlugin.sourceSets
+            sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).java { SourceDirectorySet java ->
+                java.srcDirs task.inputDir, task.outputDir
             }
         }
     }
@@ -84,15 +90,13 @@ class FlatBuffersPlugin implements Plugin<Project> {
     /**
      * Reconfigures certain plugins to know about the FlatBuffers project structure.
      *
-     * @param project Gradle project
      * @param task {@link FlatBuffers} task
      */
-    void reconfigurePlugins(Project project, FlatBuffers task) {
+    void reconfigurePlugins(FlatBuffers task) {
         // Intellij specific configurations
-        if (project.plugins.hasPlugin(IdeaPlugin)) {
-            if (!project.idea.module.generatedSourceDirs.contains(task.outputDir)) {
-                project.idea.module.generatedSourceDirs.add(task.outputDir)
-            }
+        project.pluginManager.withPlugin('idea') {
+            def idea = project.extensions.getByType(IdeaModel)
+            idea.module.generatedSourceDirs += task.outputDir
         }
     }
 
@@ -103,11 +107,11 @@ class FlatBuffersPlugin implements Plugin<Project> {
      */
     void applyDependencies(Project project) {
         // Java specific dependencies
-        if (project.plugins.hasPlugin(JavaPlugin)) {
-            project.dependencies {
-                compile 'com.google.flatbuffers:flatbuffers-java:1.8.0'
+        project.pluginManager.withPlugin('java') {
+            project.configurations.getByName(IMPLEMENTATION_CONFIGURATION_NAME) { Configuration config ->
+                def flatBufferVersion = "com.google.flatbuffers:flatbuffers-java:${extension.flatBuffersVersion ?: '1.10.0'}"
+                config.dependencies.add(project.dependencies.create(flatBufferVersion))
             }
         }
     }
-
 }

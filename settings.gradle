@@ -1,2 +1,2 @@
+// settings.gradle
 rootProject.name = 'gradle-flatbuffers-plugin'
-

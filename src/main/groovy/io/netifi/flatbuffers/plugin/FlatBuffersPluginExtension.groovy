@@ -15,10 +15,14 @@
  */
 package io.netifi.flatbuffers.plugin
 
+import groovy.transform.CompileStatic
+
+@CompileStatic
 class FlatBuffersPluginExtension {
 
     String flatcPath
 
     String language
 
+    String flatBuffersVersion = '1.10.0'
 }
