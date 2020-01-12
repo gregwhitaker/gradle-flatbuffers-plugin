@@ -73,7 +73,7 @@ This example generates Java FlatBuffers from the schema files in the default `sr
     import io.netifi.flatbuffers.plugin.tasks.FlatBuffers
     
     plugins {
-      id "io.netifi.flatbuffers" version "1.0.5"
+      id "io.netifi.flatbuffers" version "1.0.6"
     }
 
     flatbuffers {
@@ -90,7 +90,7 @@ This example generates Java FlatBuffers from the schema files in the default `sr
 For bugs, questions, and discussions please use the [Github Issues](https://github.com/netifi/gradle-flatbuffers-plugin/issues).
 
 ## License
-Copyright 2017 - 2018 [Netifi Inc.](https://www.netifi.com)
+Copyright 2020 Original Authors
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
