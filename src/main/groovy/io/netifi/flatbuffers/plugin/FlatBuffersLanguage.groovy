@@ -22,6 +22,7 @@ enum FlatBuffersLanguage {
 
     C_PLUS_PLUS("cpp"),
     JAVA("java"),
+    KOTLIN("kotlin"),
     C_SHARP("csharp"),
     GO("go"),
     PYTHON("python"),
