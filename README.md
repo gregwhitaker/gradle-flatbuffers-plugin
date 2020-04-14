@@ -58,13 +58,14 @@ The plugin supports generating code in all languages currently supported by Flat
 | Language   | Property Value |
 |------------|----------------|
 | C++        | cpp            |
-| Java       | java           |
 | C#         | csharp         |
 | Go         | go             |
-| Python     | python         |
-| Javascript | js             |
-| PHP        | php            |
 | GRPC       | grpc           |
+| Java       | java           |
+| Javascript | js             |
+| Kotlin.    | kotlin         |
+| PHP        | php            |
+| Python     | python         |
 
 ### Example
 This example generates Java FlatBuffers from the schema files in the default `src/main/flatbuffers` directory and places the generated code in `src/generated/flatbuffers`.
