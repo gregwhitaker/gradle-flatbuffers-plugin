@@ -7,7 +7,7 @@ Follow the steps below to create a new release of the gradle-flatbuffers-plugin.
     
 ### 2. Commit Release Version Change
 
-   Commit the change to the release version and verify that the [Travis CI build](https://travis-ci.org/netifi/gradle-flatbuffers-plugin) passes.
+   Commit the change to the release version and verify that the [Travis CI build](https://travis-ci.org/github/gregwhitaker/gradle-flatbuffers-plugin) passes.
     
 ### 3. Tag Release in Github
 
