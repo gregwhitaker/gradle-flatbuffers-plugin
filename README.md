@@ -1,5 +1,5 @@
 # gradle-flatbuffers-plugin
-[![Build Status](https://travis-ci.org/netifi/gradle-flatbuffers-plugin.svg?branch=master)](https://travis-ci.org/netifi/gradle-flatbuffers-plugin)
+[![Build Status](https://travis-ci.org/gregwhitaker/gradle-flatbuffers-plugin.svg?branch=master)](https://travis-ci.org/gregwhitaker/gradle-flatbuffers-plugin)
 
 Gradle plugin for generating code from Google [FlatBuffers](https://google.github.io/flatbuffers/) schemas.
 
