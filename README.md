@@ -63,7 +63,7 @@ The plugin supports generating code in all languages currently supported by Flat
 | GRPC       | grpc           |
 | Java       | java           |
 | Javascript | js             |
-| Kotlin.    | kotlin         |
+| Kotlin     | kotlin         |
 | PHP        | php            |
 | Python     | python         |
 
