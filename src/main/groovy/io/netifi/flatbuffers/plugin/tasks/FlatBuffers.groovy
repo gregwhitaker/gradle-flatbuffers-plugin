@@ -30,6 +30,7 @@ import org.gradle.process.internal.ExecException
 class FlatBuffers extends DefaultTask {
 
     @Optional
+    @PathSensitive(PathSensitivity.RELATIVE)
     @InputDirectory
     File inputDir
 
