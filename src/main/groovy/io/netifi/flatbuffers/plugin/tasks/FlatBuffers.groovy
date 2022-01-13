@@ -44,6 +44,10 @@ class FlatBuffers extends DefaultTask {
     @Optional
     String extraArgs = ""
 
+    @Input
+    @Optional
+    String sourceSetName = SourceSet.MAIN_SOURCE_SET_NAME
+
     @TaskAction
     void run() {
         createOutputDir()
