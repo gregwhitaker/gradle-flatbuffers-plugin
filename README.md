@@ -48,7 +48,7 @@ This task type compiles FlatBuffers schemas.
 | outputDir | File   | null                   | True     | The path to the directory for compiled FlatBuffers. | 
 | language  | String | value in extension     | False    | The language to use when compiling the schemas.     |
 | extraArgs | String | null                   | False    | Any additional arguments to flatc (e.g., --grpc)    |
-
+| sourceSetName | String | 'main'                   | False    | The source set to work in.    |
 
 *Note:* Please see the [Supported Languages](#supported-languages) section for valid `language` values.
 
