@@ -79,7 +79,7 @@ class FlatBuffersPlugin implements Plugin<Project> {
         project.pluginManager.withPlugin('java') {
             def javaPlugin = project.convention.getPlugin(JavaPluginConvention)
             def sourceSets = javaPlugin.sourceSets
-            sourceSets.getByName(task.sourceSetName).java { SourceDirectorySet java ->
+            sourceSets.getByName(task.sourceSet).java { SourceDirectorySet java ->
                 java.srcDirs task.inputDir, task.outputDir
             }
         }
