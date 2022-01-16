@@ -24,7 +24,6 @@ import org.gradle.api.file.SourceDirectorySet
 import org.gradle.api.plugins.BasePlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.Delete
-import org.gradle.api.tasks.SourceSet
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.gradle.util.GUtil
 
@@ -46,8 +45,7 @@ class FlatBuffersPlugin implements Plugin<Project> {
     }
 
     void configureProject() {
-        extension = project.extensions.create(FLAT_BUFFERS_EXTENSION_NAME,
-                                              FlatBuffersPluginExtension)
+        extension = project.extensions.create(FLAT_BUFFERS_EXTENSION_NAME, FlatBuffersPluginExtension)
         project.pluginManager.apply(BasePlugin)
 
         project.afterEvaluate {
@@ -81,7 +79,7 @@ class FlatBuffersPlugin implements Plugin<Project> {
         project.pluginManager.withPlugin('java') {
             def javaPlugin = project.convention.getPlugin(JavaPluginConvention)
             def sourceSets = javaPlugin.sourceSets
-            sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).java { SourceDirectorySet java ->
+            sourceSets.getByName(task.sourceSetName).java { SourceDirectorySet java ->
                 java.srcDirs task.inputDir, task.outputDir
             }
         }
