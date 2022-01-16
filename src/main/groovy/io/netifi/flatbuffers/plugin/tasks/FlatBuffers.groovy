@@ -46,7 +46,7 @@ class FlatBuffers extends DefaultTask {
 
     @Input
     @Optional
-    String sourceSet = SourceSet.MAIN_SOURCE_SET_NAME
+    String sourceSetName = SourceSet.MAIN_SOURCE_SET_NAME
 
     @TaskAction
     void run() {
