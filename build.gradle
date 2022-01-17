@@ -12,7 +12,8 @@ repositories {
 
 dependencies {
     implementation 'org.codehaus.groovy:groovy:3.0.8'
-    testImplementation('org.spockframework:spock-core:2.0-groovy-2.5')
+    testImplementation 'org.spockframework:spock-core:2.0-groovy-2.5'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 group = 'io.netifi'
@@ -21,7 +22,7 @@ version = '1.0.8'
 pluginBundle {
     website = 'https://github.com/netifi/gradle-flatbuffers-plugin'
     vcsUrl = 'https://github.com/netifi/gradle-flatbuffers-plugin'
-    tags = [ 'serialization', 'build', 'codegen' ]
+    tags = ['serialization', 'build', 'codegen']
 
     plugins {
         flatBuffersPlugin {
@@ -43,7 +44,7 @@ gradlePlugin {
 license {
     header rootProject.file('codequality/HEADER')
     strictCheck true
-    excludes([ "**/*.json", "**/*.html", "**/*.js" ])
+    excludes(["**/*.json", "**/*.html", "**/*.js"])
 }
 
 wrapper {
